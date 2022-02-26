@@ -39,8 +39,25 @@ heapOptions: "-Xms512M -Xmx512M"
 
 ## Additional env variables
 ## CUSTOM_SCRIPT_PATH is the path of the custom shell script to be ran mounted in a volume
-customEnv: {}
+customEnv: 
   # CUSTOM_SCRIPT_PATH: /etc/scripts/create-connectors.sh
+     KAFKA_OPTS: "-verbose:gc
+     -Xloggc:/tmp/gc.log
+     -XX:NumberOfGCLogFiles=5
+     -XX:+UseGCLogFileRotation
+     -XX:GCLogFileSize=100m
+     -XX:+PrintGC
+     -XX:+PrintGCDateStamps
+     -XX:+PrintGCDetails
+     -XX:+PrintHeapAtGC
+     -XX:+PrintGCCause
+     -XX:+PrintTenuringDistribution
+     -XX:+PrintReferenceGC
+     -XX:+PrintAdaptiveSizePolicy
+     -XX:+UnlockDiagnosticVMOptions
+     -XX:G1SummarizeRSetStatsPeriod=1
+     -XX:+HeapDumpOnOutOfMemoryError 
+     -XX:HeapDumpPath=/tmp/heapdumpsFromJVM"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
